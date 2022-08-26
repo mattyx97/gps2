@@ -1,7 +1,5 @@
 {
- 
   "dependencies": {
-     "gpstracker": "^0.0.4"
-  },
- 
+    "gpstracker": "^0.0.4"
+  }
 }
