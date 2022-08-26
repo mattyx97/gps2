@@ -1,6 +1,6 @@
 var gpstracker = require("gpstracker");
-var server = gpstracker.create().listen(8090, function(){
-    console.log('listening your gps trackers on port', 8090);
+var server = gpstracker.create().listen(5000, function(){
+    console.log('listening your gps trackers on port', 5000);
 });
  
 server.trackers.on("connected", function(tracker){
