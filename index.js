@@ -1,31 +1,22 @@
-var gps = require("gps-tracking");
+var gpstracker = require("gpstracker");
+var server = gpstracker.create().listen(8090, function(){
+    console.log('listening your gps trackers on port', 8090);
+});
  
-var options = {
-    'debug'                 : true,
-    'port'                  : 8090,
-    'device_adapter'        : "TK103"
-}
- 
-var server = gps.server(options,function(device,connection){
- 
-    device.on("login_request",function(device_id,msg_parts){
- 
-        // Some devices sends a login request before transmitting their position
-        // Do some stuff before authenticate the device...
- 
-        // Accept the login request. You can set false to reject the device.
-        this.login_authorized(true);
- 
+server.trackers.on("connected", function(tracker){
+    
+    console.log("tracker connected with imei:", tracker.imei);
+    server.send_to(tracker.imei, 'powercar 11');
+
+    
+    tracker.on("help me", function(){
+        console.log(tracker.imei + " pressed the help button!!".red);
     });
  
- 
-    //PING -> When the gps sends their position
-    device.on("ping",function(data){
- 
-        //After the ping is received, but before the data is saved
-        //console.log(data);
-        return data;
- 
+    tracker.on("position", function(position){
+        console.log("tracker {" + tracker.imei +  "}: lat", 
+                            position.lat, "lng", position.lng);
     });
  
+    tracker.trackEvery(30).seconds();
 });

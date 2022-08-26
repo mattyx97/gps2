@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "gps-tracking": "^1.1.1",
-    "octopus-gps-tracking": "^1.0.14"
+    "gpstracker": "^0.0.4"
   }
 }
