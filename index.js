@@ -6,7 +6,6 @@ var server = gpstracker.create().listen(5000, function(){
 server.trackers.on("connected", function(tracker){
     
     console.log("tracker connected with imei:", tracker.imei);
-    server.send_to(tracker.imei, 'powercar 11');
 
     
     tracker.on("help me", function(){
